@@ -1,0 +1,21 @@
+all: alien.dge
+
+CC=mipsel-linux-gcc
+SDL_CFLAGS = `/opt/mipsel-linux-uclibc/usr/bin/sdl-config --cflags`
+SDL_LIBS = `/opt/mipsel-linux-uclibc/usr/bin/sdl-config --libs`
+CFLAGS= -DDINGUX $(SDL_CFLAGS)
+OBJS=\
+	common.o vm.o sprites.o decode.o animation.o rooms.o \
+	render.o main.o music.o debug.o lzss.o cd_iso.o sound.o \
+	screen.o scale2x.o scale3x.o game2bin.o
+
+LIBS=$(SDL_LIBS) -lSDLmain -lSDL_mixer
+
+alien.dge: $(OBJS)
+	$(CC) -o $@ $(OBJS) $(LIBS)
+
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm $(OBJS) alien.dge

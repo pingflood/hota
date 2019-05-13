@@ -1,0 +1,17 @@
+Dingux Port by Shin-NiL (http://shinnil.co.cc)
+==============================================
+
+Installation
+------------
+The script "hota.dge" is ready to run the game iso + mp3 format. For that, just copy the iso file and all files in mp3 format of the game to the "hota" folder, same folder where the script "hota.dge" is located. Now just run the file "hota.dge" with your favorite application launcher.
+If necessary, edit the script "hota.dge" according to your needs, see the options available in the README.
+
+Controls
+--------
+Y - Shoot, hold to run
+B - Use the whip
+A - Jump
+L - Quicksave (1 slot)
+R - quickload
+X - Speed ​​up the game
+Select - Quit game or jump animation
