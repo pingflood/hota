@@ -43,6 +43,15 @@ KEYS
         F7                     quickload
         ESC                    leave game, or skip animation
 
+
+DINGUX:
+        Y                      shoot, keep down in order to run
+        A                      use your whip
+        B                      jump
+        R                      quicksave (1 slot)
+        L                      quickload
+        SELECT                 leave game, or skip animation
+
 BUGS
 
         The final version will be announced when no more bug reports have

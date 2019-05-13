@@ -44,12 +44,12 @@
 
 #ifdef DINGUX
 
-#define SDLK_z 304  //Y shoot, keep down in order to run
-#define SDLK_x  308 //B use your whip
-#define SDLK_c  306 //A jump
-#define SDLK_F5 9 //L quicksave (1 slot)
-#define SDLK_F7 8 //R quickload
-#define SDLK_SPACE 32 //X speed throttle
+#define SDLK_z 304  // Y shoot, keep down in order to run
+#define SDLK_x  306 // A use your whip
+#define SDLK_c  308 // B jump
+#define SDLK_F5 8 // R quicksave (1 slot)
+#define SDLK_F7 9 // L quickload
+#define SDLK_SPACE 32 // X speed throttle
 
 #endif
 
