@@ -135,7 +135,7 @@ static int initialize()
 
 	if (nosound_flag == 0)
 	{
-		if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096) < 0) 
+		if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 4096) < 0) 
 		{
 			panic("Mix_OpenAudio failed\n");
 		}
