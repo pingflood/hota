@@ -85,8 +85,8 @@ static void play_music_track_mp3(int track, int loop)
 
 	stop_music_mp3();
 
-	sprintf(filename, "Heart Of The Alien (U) %02d.mp3", track + 1);
-	LOG(("playing mp3 %s\n", filename));
+	sprintf(filename, "Heart Of The Alien (U) %02d.ogg", track + 1);
+	LOG(("playing ogg %s\n", filename));
 
 	current_track = Mix_LoadMUS(filename);
 	Mix_PlayMusic(current_track, loop);
