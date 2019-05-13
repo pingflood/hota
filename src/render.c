@@ -34,6 +34,7 @@ extern int scale;
 extern int palette_changed;
 extern SDL_Color palette[256];
 extern SDL_Surface *screen;
+SDL_Surface *ScreenSurface;
 
 int palette_changed = 0;
 int current_palette = 0;
@@ -57,44 +58,85 @@ int get_scroll_register()
 
 void render1x(char *src)
 {
-	int y, p;
 
-	if (scroll_reg == 0)
-	{
 		/* no scroll */
-		for (y=0; y<192; y++)
+		for (int y=0; y<192; y++)
 		{
 			memcpy((char *)screen->pixels + y*screen->pitch, src + 304*y, 304);
 		}
-	}
-	else if (scroll_reg < 0)
-	{
-		/* scroll from bottom */
-		p = 1 - scroll_reg;
-		for (y=p; y<192; y++)
-		{
-			memcpy((char *)screen->pixels + (y-p)*screen->pitch, src + 304*y, 304);
-		}
 
-		for (y=192; y<192+p; y++)
-		{
-			memcpy((char *)screen->pixels + (y-p)*screen->pitch, src + 304*(y-192), 304);
-		}
-	}
-	else 
-	{
-		/* scroll from top */
-		p = scroll_reg;
-		for (y=0; y<p; y++)
-		{
-			memcpy((char *)screen->pixels + y*screen->pitch, src + 304*(191-p+y), 304);
-		}
 
-		for (y=p; y<192; y++)
-		{
-			memcpy((char *)screen->pixels + y*screen->pitch, src + 304*(y-p), 304);
-		}
-	}
+    // SDL_Flip(sdl_surface);
+    SDL_Surface* p = SDL_ConvertSurface(screen, ScreenSurface->format, 0); 
+    // SDL_SoftStretch(p, NULL, ScreenSurface, NULL);
+    SDL_BlitSurface(p, NULL, ScreenSurface, NULL);
+    // SDL_Flip(p);
+    SDL_Flip(ScreenSurface);
+    SDL_FreeSurface(p);
+return;
+
+
+
+
+
+
+// 	int y, p;
+
+
+// 	uint16_t *d = (uint16_t*)screen->pixels; // + (screen->w - surface->w) / 2 + (screen->h - surface->h) * screen->pitch / 4 ;
+//     char *s = (char*)src; //surface->pixels;
+//     for (int y = 0; y < 192; y++)
+//     {
+//         memmove(d, s, 304 * sizeof(uint16_t));
+//         s += 304;
+//         d += 320;
+//     }
+
+// return;
+
+
+
+
+
+
+
+
+// 	if (scroll_reg == 0)
+// 	{
+// 		/* no scroll */
+// 		for (y=0; y<192; y++)
+// 		{
+// 			memcpy((char *)screen->pixels + y*screen->pitch, src + 304*y, 304);
+// 		}
+// 	}
+// 	else if (scroll_reg < 0)
+// 	{
+// 		/* scroll from bottom */
+// 		p = 1 - scroll_reg;
+// 		for (y=p; y<192; y++)
+// 		{
+// 			memcpy((char *)screen->pixels + (y-p)*screen->pitch, src + 304*y, 304);
+// 		}
+
+// 		for (y=192; y<192+p; y++)
+// 		{
+// 			memcpy((char *)screen->pixels + (y-p)*screen->pitch, src + 304*(y-192), 304);
+// 		}
+// 	}
+// 	else 
+// 	{
+// 		/* scroll from top */
+// 		p = scroll_reg;
+// 		for (y=0; y<p; y++)
+// 		{
+// 			memcpy((char *)screen->pixels + y*screen->pitch, src + 304*(191-p+y), 304);
+// 		}
+
+// 		for (y=p; y<192; y++)
+// 		{
+// 			memcpy((char *)screen->pixels + y*screen->pitch, src + 304*(y-p), 304);
+// 		}
+// 	}
 }
 
 /* advmame2x scaler */
@@ -256,37 +298,42 @@ void toggle_fullscreen()
 	SDL_FreeSurface(screen);
 	screen = 0;
 
-	if (fullscreen == 0)
-	{
+	// if (fullscreen == 0)
+	// {
 		LOG(("create SDL surface of 304x192x8\n"));
 
-		screen = SDL_SetVideoMode(304*scale, 192*scale, 8, SDL_SWSURFACE);
+		ScreenSurface = SDL_SetVideoMode(304*scale, 192*scale, 16, SDL_SWSURFACE);
+    // ScreenSurface = SDL_SetVideoMode(320, 200, 16, SDL_HWSURFACE);
+    screen = SDL_CreateRGBSurface(SDL_SWSURFACE, 304, 192, 8, 0, 0, 0, 0);
+
+
 		SDL_SetColors(screen, palette, 0, 256);
 #ifdef DINGUX
 		SDL_ShowCursor(0);
 #else
 		SDL_ShowCursor(1);
 #endif
-	}
-	else
-	{
-		int w, h;
+	// }
+	// else
+	// {
+	// 	int w, h;
 
-		w = 320*scale;
-		h = 200*scale;
+	// 	w = 320*scale;
+	// 	h = 200*scale;
 
-		LOG(("setting fullscreen mode %dx%dx8\n", w, h));
+	// 	LOG(("setting fullscreen mode %dx%dx8\n", w, h));
 
-		screen = SDL_SetVideoMode(w, h, 8, SDL_SWSURFACE|SDL_HWSURFACE|SDL_FULLSCREEN);
+	// 	screen = SDL_SetVideoMode(w, h, 16, SDL_SWSURFACE|SDL_HWSURFACE|SDL_FULLSCREEN);
 
-		SDL_SetColors(screen, palette, 0, 256);
-		SDL_ShowCursor(0);
-	}
+	// 	SDL_SetColors(screen, palette, 0, 256);
+	// 	SDL_ShowCursor(0);
+	// }
 }
 
 int render_create_surface()
 {
-	screen = SDL_SetVideoMode(304*scale, 192*scale, 8, SDL_SWSURFACE);
+	screen = SDL_CreateRGBSurface(SDL_SWSURFACE, 304, 192, 8, 0, 0, 0, 0);
+
 	if (screen == NULL) 
 	{
 		return -1;
