@@ -45,12 +45,12 @@ KEYS
 
 
 DINGUX:
-        Y                      shoot, keep down in order to run
-        A                      use your whip
-        B                      jump
-        R                      quicksave (1 slot)
-        L                      quickload
-        SELECT                 leave game, or skip animation
+        Y                     shoot / run
+        A                     whip
+        B                     jump
+        L                     quickload
+        R                     quicksave
+        SELECT                skip animation / quit game
 
 BUGS
 

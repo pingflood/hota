@@ -9,7 +9,7 @@ SYSROOT     := $(shell $(CC) --print-sysroot)
 SDL_CFLAGS  := $(shell $(SYSROOT)/usr/bin/sdl-config --cflags)
 SDL_LIBS    := $(shell $(SYSROOT)/usr/bin/sdl-config --libs)
 
-CFLAGS= -DDINGUX $(SDL_CFLAGS) -DENABLE_DEBUG
+CFLAGS= -DDINGUX $(SDL_CFLAGS) #-DENABLE_DEBUG
 OBJS=\
 	src/common.o src/vm.o src/sprites.o src/decode.o src/animation.o src/rooms.o \
 	src/render.o src/main.o src/music.o src/debug.o src/lzss.o src/cd_iso.o src/sound.o \

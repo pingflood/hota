@@ -303,6 +303,8 @@ void toggle_fullscreen()
 		LOG(("create SDL surface of 304x192x8\n"));
 
 		ScreenSurface = SDL_SetVideoMode(304*scale, 192*scale, 16, SDL_SWSURFACE);
+		// ScreenSurface = SDL_SetVideoMode(304*scale, 192*scale, 16, SDL_HWSURFACE | SDL_TRIPLEBUF);
+		// ScreenSurface = SDL_SetVideoMode(304*scale, 192*scale, 16, SDL_HWSURFACE);
     // ScreenSurface = SDL_SetVideoMode(320, 200, 16, SDL_HWSURFACE);
     screen = SDL_CreateRGBSurface(SDL_SWSURFACE, 304, 192, 8, 0, 0, 0, 0);
 
